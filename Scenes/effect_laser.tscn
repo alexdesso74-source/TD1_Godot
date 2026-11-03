@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dewsuriftcstf"]
+
+[ext_resource type="Script" uid="uid://oajt18xifwct" path="res://Scenes/effect_laser.gd" id="1_gl6fp"]
+[ext_resource type="Texture2D" uid="uid://bh10tr1ve7ifp" path="res://Effects/Textures/soft_circle.png" id="1_wdeb2"]
+
+[node name="EffectLaser" type="Area2D" unique_id=243486022]
+script = ExtResource("1_gl6fp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=645502750]
+texture = ExtResource("1_wdeb2")
