@@ -507,9 +507,9 @@ Piochez librement. Plus vous montez, plus ça rapporte. Remplissez la colonne **
 
 | | Effet | Vu en | Fait |
 |---|---|---|:---:|
-| 🥉 | Flash blanc à l'impact | 1.4 |  |
-| 🥉 | Son de tir avec pitch aléatoire | 1.3 |  |
-| 🥉 | Explosion et étincelles d'impact | 1.4 |  |
+| 🥉 | Flash blanc à l'impact | 1.4 | ✅ |
+| 🥉 | Son de tir avec pitch aléatoire | 1.3 | ✅ |
+| 🥉 | Explosion et étincelles d'impact | 1.4 | ✅ |
 | 🥉 | Score qui punch, flash rouge au dégât | 1.5 |  |
 | 🥈 | Screen shake par trauma | 2.1 |  |
 | 🥈 | Hitstop | 2.1 |  |
@@ -530,6 +530,6 @@ Piochez librement. Plus vous montez, plus ça rapporte. Remplissez la colonne **
 
 # 3. 📋 Votre rendu (à compléter dans ce README)
 
-- **Nom / Prénom** : …
+- **Nom / Prénom** : Dessolliers Alexandre
 - **Vidéo avant / après** : déposez vos deux vidéos ou GIF dans `Rendu/` et affichez-les ici.
 - **Ma carte de juice** : dans la colonne **Fait** de la [carte de juice](#24-carte-de-juice), mettez ✅ si vous l'avez fait, ❌ sinon (copiez-collez l'emoji). Pour chaque ✅, indiquez ici où (script, fonction).
