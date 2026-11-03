@@ -9,6 +9,7 @@ extends Area2D
 @export var y_limit: float = 620.0
 @export var acceleration: float = 3000
 @export var max_rotation: float = 15.0
+@export var health: int = 3
 
 var velocity: Vector2 = Vector2.ZERO
 
@@ -45,6 +46,10 @@ func read_direction() -> Vector2:
 	return direction
 
 	
+func take_damage(amount: int) ->void:
+	health -= amount
+	if health <= 0:
+		get_tree().reload_current_scene.call_deferred()
 	
 	
 		

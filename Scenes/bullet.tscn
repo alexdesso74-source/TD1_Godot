@@ -3,12 +3,16 @@
 [ext_resource type="Script" uid="uid://poeagvdwh4cb" path="res://Scripts/bullet.gd" id="1_oduel"]
 [ext_resource type="Texture2D" uid="uid://bpi7xwbogvkid" path="res://KennyAssets/SpaceShooterRedux/Lasers/laserBlue02.png" id="1_xjght"]
 [ext_resource type="PackedScene" path="res://Effects/muzzle_flash.tscn" id="3_ycag2"]
+[ext_resource type="PackedScene" path="res://Effects/hit_spark.tscn" id="4_6afsh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oduel"]
 size = Vector2(14, 36)
 
 [node name="Bullet" type="Area2D" unique_id=1548829922]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_oduel")
+hit_fx = ExtResource("4_6afsh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2105341501]
 texture = ExtResource("1_xjght")
@@ -18,3 +22,5 @@ shape = SubResource("RectangleShape2D_oduel")
 
 [node name="MuzzleFlash" parent="." unique_id=816314659 instance=ExtResource("3_ycag2")]
 position = Vector2(0, 10)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

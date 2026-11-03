@@ -5,15 +5,16 @@
 [ext_resource type="PackedScene" uid="uid://dl4y6ta2gnn86" path="res://Scenes/bullet.tscn" id="3_6t5aa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
-size = Vector2(98, 73)
+size = Vector2(76, 59)
 
 [node name="player" type="Area2D" unique_id=1733683674]
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=41909058]
 texture = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=753508775]
-position = Vector2(0, -0.5)
+position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_6t5aa")
 
 [node name="Weapon" parent="." unique_id=811847695 instance=ExtResource("2_cvnsp")]
