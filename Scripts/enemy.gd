@@ -3,6 +3,7 @@ extends Area2D
 @onready var sprite: Sprite2D = $sprite
 @export var speed: float = 300.0
 @export var health: int = 2
+@export var enemie_score: int = 10
 @export var explosion_fx: PackedScene
 @onready var flash_timer: Timer = $OneShot
 
@@ -14,6 +15,7 @@ var velocity: Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	velocity = Vector2.DOWN * speed
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -39,6 +41,7 @@ func take_damage(amount: int) ->void:
 		var explosion:Node2D = explosion_fx.instantiate()
 		explosion.global_position = global_position
 		get_tree().current_scene.add_child(explosion)
+		GameManager.add_score(enemie_score)
 		queue_free()
 
 

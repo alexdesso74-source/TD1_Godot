@@ -20,4 +20,4 @@ shape = SubResource("RectangleShape2D_6t5aa")
 [node name="Weapon" parent="." unique_id=811847695 instance=ExtResource("2_cvnsp")]
 position = Vector2(0, -44)
 bullet_scene = ExtResource("3_6t5aa")
-time_between_shots = 0.5
+time_between_shots = 0.3

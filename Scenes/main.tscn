@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://cydxf08drw8yr" path="res://Scripts/Player.gd" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://dfmwg5erisofx" path="res://Scenes/enemy_spawner.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bmebsoaa78f2c" path="res://Scenes/enemy.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://bb830e54nxi8f" path="res://Scenes/hud.tscn" id="6_ynf5e"]
+[ext_resource type="Script" uid="uid://cn7fnnm1wlcis" path="res://Scripts/hud.gd" id="7_hptm8"]
 
 [node name="Main" type="Node2D" unique_id=1291973152]
 use_parent_material = true
@@ -25,3 +27,6 @@ script = ExtResource("3_8gbba")
 
 [node name="Enemy_spawner" parent="." unique_id=1878363346 instance=ExtResource("4_jjvhh")]
 enemy_scene = ExtResource("5_kry3j")
+
+[node name="hud" parent="." unique_id=1538741765 instance=ExtResource("6_ynf5e")]
+script = ExtResource("7_hptm8")

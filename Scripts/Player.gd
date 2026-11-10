@@ -48,8 +48,13 @@ func read_direction() -> Vector2:
 	
 func take_damage(amount: int) ->void:
 	health -= amount
+	GameManager.player_life_changed.emit(health)
 	if health <= 0:
-		get_tree().reload_current_scene.call_deferred()
+		GameManager.trigger_game_over()
 	
 	
 		
+
+
+func _on_rejouer_button_pressed() -> void:
+	pass # Replace with function body.
