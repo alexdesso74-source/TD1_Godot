@@ -8,6 +8,8 @@ extends Area2D
 @export var knockback: float = 300.0
 @export var knockback_recovery: float = 900.0
 @export var explosion_scene: PackedScene
+@export var debris_scene: PackedScene
+@export var trauma_value : float = 0.4
 
 var life: int
 var velocity: Vector2
@@ -50,6 +52,12 @@ func die(killed_by_player: bool) -> void:
 	var explosion: Node2D = explosion_scene.instantiate()
 	explosion.global_position = global_position
 	get_tree().current_scene.add_child(explosion)
+	var debris: Node2D = debris_scene.instantiate()
+	debris.global_position = global_position
+	get_tree().current_scene.add_child(debris)
+	var camera : CameraShake = get_viewport().get_camera_2d()
+	camera.add_trauma(trauma_value)
+	GameManager.hitstop(0.04)
 	queue_free()
 
 # Contact direct avec le joueur

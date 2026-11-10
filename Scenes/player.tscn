@@ -1,25 +1,37 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsc3qbidoshdp"]
+[gd_scene format=3 uid="uid://dsc3qbidoshdp"]
 
-[ext_resource type="Script" uid="uid://pdapwyic7a2l" path="res://Scripts/player.gd" id="1"]
+[ext_resource type="Script" uid="uid://d141fqq5rshwy" path="res://Scripts/player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cofylary07q2b" path="res://KennyAssets/SpaceShooterRedux/playerShip1_blue.png" id="2"]
+[ext_resource type="PackedScene" path="res://Effects/explosion.tscn" id="2_3smsa"]
 [ext_resource type="PackedScene" uid="uid://bu8yfc6a6q73i" path="res://Scenes/weapon.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://Scenes/bullet.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://Effects/muzzle_flash.tscn" id="5"]
+[ext_resource type="AudioStream" path="res://Effects/Sounds/sfx_player_hurt.tres" id="6_x3wgy"]
 
 [sub_resource type="RectangleShape2D" id="hitbox"]
 size = Vector2(56, 44)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" unique_id=1751008685 node_paths=PackedStringArray("invicibility_timer")]
 collision_mask = 0
 script = ExtResource("1")
+explosion_scene = ExtResource("2_3smsa")
+invicibility_timer = NodePath("InvicibilityTimer")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1841325741]
 texture = ExtResource("2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1431435963]
 shape = SubResource("hitbox")
 
-[node name="Weapon" parent="." instance=ExtResource("3")]
+[node name="Weapon" parent="." unique_id=839784483 instance=ExtResource("3")]
 position = Vector2(0, -45)
 bullet_scene = ExtResource("4")
 muzzle_flash_scene = ExtResource("5")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." unique_id=1072739074]
+stream = ExtResource("6_x3wgy")
+
+[node name="InvicibilityTimer" type="Timer" parent="." unique_id=809093389]
+wait_time = 4.0
+
+[connection signal="timeout" from="InvicibilityTimer" to="." method="_on_invicibility_timer_timeout"]

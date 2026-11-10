@@ -6,12 +6,16 @@ extends Area2D
 @export var acceleration: float = 4000.0
 @export var max_tilt_degrees: float = 15.0
 @export var x_limit: float = 320.0
-@export var max_life: int = 3
+@export var max_life: int = 3  
+@export var explosion_scene: PackedScene
+@export var invicibility_timer: Timer 
+var is_invincible: bool = false
 
 var velocity: Vector2 = Vector2.ZERO
 var life: int
-
+@onready var sound: AudioStreamPlayer2D = $Sound
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var invincibility_tile:Timer = $InvicibilityTimer
 
 func _ready() -> void:
 	life = max_life
@@ -37,10 +41,36 @@ func read_direction() -> Vector2:
 
 # --- 1.4 : dégâts (appelé par les ennemis)
 func take_damage(amount: int) -> void:
+	if is_invincible:
+		return
+	is_invincible = true
+	invicibility_timer.start()
+	var blink_tween:Tween = get_tree().create_tween()
+	blink_tween.tween_property(sprite,"modulate:a",0.4,0.25)
+	blink_tween.tween_property(sprite,"modulate:a",1.0,0.25)
+	blink_tween.set_loops(5)
+	blink_tween.play()
+
+	var strech_tween:Tween = get_tree().create_tween()
+	sprite.scale = Vector2(1,1)
+	strech_tween.tween_property(sprite,"scale",Vector2(1.3,0.7),0.25)
+	strech_tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	strech_tween.play()
+	
 	if life <= 0:
 		return
-
+	GameManager.hitstop(0.1)
+	sound.play()
 	life -= amount
 	GameManager.player_life_changed.emit(life)  # 1.5
 	if life <= 0:
+		var explosion : Node2D = explosion_scene.instantiate()
+		explosion.global_position = global_position
+		explosion.scale = Vector2.ONE * 2.0
+		get_tree().current_scene.add_child(explosion)
+		
 		GameManager.trigger_game_over()          # 1.5
+
+
+func _on_invicibility_timer_timeout() -> void:
+	is_invincible = false	

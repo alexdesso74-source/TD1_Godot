@@ -27,7 +27,19 @@ func _on_player_life_changed(life: int) -> void:
 	create_tween().tween_property(damage_flash, "color:a", 0.0, 0.3)
 
 func _on_game_over() -> void:
+	
 	game_over_panel.visible = true
+	game_over_panel.scale = Vector2.ZERO
+	game_over_panel.modulate.a = 0.0
+	var game_over_tween:Tween = get_tree().create_tween()
+	game_over_tween.set_parallel(true)
+	game_over_tween.tween_property(game_over_panel,"scale",Vector2.ONE,0.6)
+	game_over_tween.tween_property(game_over_panel,"modulate:a",1.0,0.6)
+	game_over_tween.set_trans(Tween.TRANS_BACK)
+	game_over_tween.set_ignore_time_scale(true)
+	game_over_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
+	game_over_tween.play()
+	
 
 func _on_restart_button_pressed() -> void:
 	GameManager.restart()
