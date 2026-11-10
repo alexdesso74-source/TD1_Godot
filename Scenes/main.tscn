@@ -28,3 +28,4 @@ script = ExtResource("3_8gbba")
 enemy_scene = ExtResource("5_kry3j")
 
 [node name="hud2" parent="." unique_id=1538741765 instance=ExtResource("6_ynf5e")]
+script = null

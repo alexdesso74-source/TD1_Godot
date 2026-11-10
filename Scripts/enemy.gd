@@ -41,7 +41,7 @@ func take_damage(amount: int) ->void:
 		var explosion:Node2D = explosion_fx.instantiate()
 		explosion.global_position = global_position
 		get_tree().current_scene.add_child(explosion)
-		GameManager.add_score(enemie_score)
+		
 		queue_free()
 
 
