@@ -1,55 +1,59 @@
 class_name Enemy
+
 extends Area2D
-@onready var sprite: Sprite2D = $sprite
-@export var speed: float = 300.0
-@export var health: int = 2
-@export var enemie_score: int = 10
-@export var explosion_fx: PackedScene
-@onready var flash_timer: Timer = $OneShot
 
-@export var knockback_force: float = 400
-@export var knockback_recovery: float = 2000
+@export var speed: float = 200.0
+@export var max_life: int = 2
+@export var score_value: int = 100
+@export var knockback: float = 300.0
+@export var knockback_recovery: float = 900.0
+@export var explosion_scene: PackedScene
 
+var life: int
 var velocity: Vector2
 
-# Called when the node enters the scene tree for the first time.
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var flash_timer: Timer = $FlashTimer
+
 func _ready() -> void:
+	life = max_life
 	velocity = Vector2.DOWN * speed
-	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
+# --- 1.4 : descend vers le bas de l'écran, et disparaît une fois sorti
 func _physics_process(delta: float) -> void:
-	var target_velocity:Vector2 = Vector2.DOWN * speed
-	velocity = velocity.move_toward(target_velocity,knockback_recovery*delta)
-	global_position += velocity*delta
-	
-	if (position.y > 1280):
+	# Juice : après un knockback, on revient progressivement à la vitesse normale
+	velocity = velocity.move_toward(Vector2.DOWN * speed, knockback_recovery * delta)
+	position += velocity * delta
+	# global_position : l'ennemi est enfant du spawner, placé au-dessus de l'écran
+	if global_position.y > 800.0:
 		queue_free()
-		
-func take_damage(amount: int) ->void:
-	health -= amount
-	sprite.modulate = Color(10,10,10)
+
+func take_damage(amount: int) -> void:
+	life -= amount
+	if life <= 0:
+		die(true)
+		return
+
+	# Juice : flash blanc + knockback
+	sprite.modulate = Color(10, 10, 10)
 	flash_timer.start()
-	velocity = Vector2.UP * knockback_force
-		
+	velocity.y = -knockback
 
-	if health <= 0:
-		$AudioStreamPlayer2D.play()
-		var explosion:Node2D = explosion_fx.instantiate()
-		explosion.global_position = global_position
-		get_tree().current_scene.add_child(explosion)
-		
-		queue_free()
+func _on_flash_timer_timeout() -> void:
+	sprite.modulate = Color.WHITE
 
+func die(killed_by_player: bool) -> void:
+	if killed_by_player:
+		GameManager.add_score(score_value)  # 1.5
 
+	# Juice : une explosion à la place de l'ennemi
+	var explosion: Node2D = explosion_scene.instantiate()
+	explosion.global_position = global_position
+	get_tree().current_scene.add_child(explosion)
+	queue_free()
+
+# Contact direct avec le joueur
 func _on_area_entered(area: Area2D) -> void:
 	if area is Player:
 		area.take_damage(1)
-		queue_free()
-
-
-func _on_one_shot_timeout() -> void:
-	sprite.modulate = Color.WHITE
+		die(false)

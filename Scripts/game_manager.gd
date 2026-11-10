@@ -1,31 +1,23 @@
+# Autoload (Project Settings > Globals > Autoload), nommé GameManager.
+# Pas de class_name ici : Godot refuse une classe qui porte le nom d'un autoload.
 extends Node
 
-var global_score: int = 0
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-signal game_over()
 signal score_changed(score: int)
-signal player_life_changed(life:int)
-	
-	
+signal player_life_changed(life: int)
+signal game_over
+
+var score: int = 0
+
+# --- 1.5
 func add_score(points: int) -> void:
-	global_score += points
-	score_changed.emit(global_score)
-	
+	score += points
+	score_changed.emit(score)
 
 func trigger_game_over() -> void:
 	get_tree().paused = true
 	game_over.emit()
 
 func restart() -> void:
-	global_score = 0
+	score = 0
 	get_tree().paused = false
-	get_tree().reload_current_scene.call_deferred()
+	get_tree().reload_current_scene()

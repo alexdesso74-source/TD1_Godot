@@ -1,27 +1,22 @@
-[gd_scene format=3 uid="uid://dl4y6ta2gnn86"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" uid="uid://poeagvdwh4cb" path="res://Scripts/bullet.gd" id="1_oduel"]
-[ext_resource type="Texture2D" uid="uid://bpi7xwbogvkid" path="res://KennyAssets/SpaceShooterRedux/Lasers/laserBlue02.png" id="1_xjght"]
-[ext_resource type="PackedScene" path="res://Effects/muzzle_flash.tscn" id="3_ycag2"]
-[ext_resource type="PackedScene" uid="uid://derq2ximyr2w" path="res://Effects/hit_spark.tscn" id="4_6afsh"]
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1"]
+[ext_resource type="Texture2D" path="res://KennyAssets/SpaceShooterRedux/Lasers/laserBlue02.png" id="2"]
+[ext_resource type="PackedScene" path="res://Effects/hit_spark.tscn" id="3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oduel"]
-size = Vector2(14, 36)
+[sub_resource type="RectangleShape2D" id="hitbox"]
+size = Vector2(12, 34)
 
-[node name="Bullet" type="Area2D" unique_id=1548829922]
+[node name="Bullet" type="Area2D"]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_oduel")
-speed = 800.0
-hit_fx = ExtResource("4_6afsh")
+script = ExtResource("1")
+hit_effect_scene = ExtResource("3")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2105341501]
-texture = ExtResource("1_xjght")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1966036760]
-shape = SubResource("RectangleShape2D_oduel")
-
-[node name="MuzzleFlash" parent="." unique_id=816314659 instance=ExtResource("3_ycag2")]
-position = Vector2(0, 10)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("hitbox")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

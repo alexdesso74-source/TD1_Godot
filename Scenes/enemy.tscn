@@ -1,30 +1,27 @@
-[gd_scene format=3 uid="uid://bmebsoaa78f2c"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" uid="uid://cyvjo5lka522d" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="PackedScene" path="res://Effects/explosion.tscn" id="2_287tu"]
-[ext_resource type="Texture2D" uid="uid://ca513f5s5u4ji" path="res://KennyAssets/SpaceShooterRedux/Enemies/enemyRed1.png" id="2_afpow"]
-[ext_resource type="AudioStream" path="res://Effects/Sounds/sfx_explosion.tres" id="3_afpow"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1"]
+[ext_resource type="Texture2D" path="res://KennyAssets/SpaceShooterRedux/Enemies/enemyRed1.png" id="2"]
+[ext_resource type="PackedScene" path="res://Effects/explosion.tscn" id="3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_287tu"]
-size = Vector2(91, 88)
+[sub_resource type="RectangleShape2D" id="hitbox"]
+size = Vector2(84, 70)
 
-[node name="Enemy" type="Area2D" unique_id=127501322]
+[node name="Enemy" type="Area2D"]
 collision_layer = 2
-script = ExtResource("1_1f0kj")
-explosion_fx = ExtResource("2_287tu")
+collision_mask = 1
+script = ExtResource("1")
+explosion_scene = ExtResource("3")
 
-[node name="sprite" type="Sprite2D" parent="." unique_id=1549977473]
-texture = ExtResource("2_afpow")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1895429161]
-position = Vector2(-0.5, -3)
-shape = SubResource("RectangleShape2D_287tu")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("hitbox")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=97145551]
-stream = ExtResource("3_afpow")
-
-[node name="OneShot" type="Timer" parent="." unique_id=36189143]
+[node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.06
+one_shot = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="timeout" from="OneShot" to="." method="_on_one_shot_timeout"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
