@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://cfpca2vwpkl6f"]
+
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1_6fbih"]
+[ext_resource type="FontFile" uid="uid://kebcj1dqllk2" path="res://KennyAssets/SpaceShooterRedux/Bonus/kenvector_future.ttf" id="1_bjfho"]
+[ext_resource type="Texture2D" uid="uid://dkw1qi8pwrgg3" path="res://KennyAssets/SpaceShooterRedux/UI/playerLife1_blue.png" id="2_6fbih"]
+
+[node name="hud" type="CanvasLayer" unique_id=1538741765]
+script = ExtResource("1_6fbih")
+
+[node name="DamageFlash" type="ColorRect" parent="." unique_id=1361394154]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0)
+
+[node name="Score" type="Label" parent="." unique_id=2133119959]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 112.0
+grow_horizontal = 0
+pivot_offset_ratio = Vector2(1, 0)
+theme_override_fonts/font = ExtResource("1_bjfho")
+theme_override_font_sizes/font_size = 28
+text = "000000
+
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="LifeContainer" type="HBoxContainer" parent="." unique_id=795958276]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 117.0
+offset_bottom = 50.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Life1" type="TextureRect" parent="LifeContainer" unique_id=567399712]
+layout_mode = 2
+texture = ExtResource("2_6fbih")
+expand_mode = 3
+
+[node name="Life2" type="TextureRect" parent="LifeContainer" unique_id=599238326]
+layout_mode = 2
+texture = ExtResource("2_6fbih")
+expand_mode = 3
+
+[node name="Life3" type="TextureRect" parent="LifeContainer" unique_id=464377807]
+layout_mode = 2
+texture = ExtResource("2_6fbih")
+expand_mode = 3
+
+[node name="GameOver" type="Control" parent="." unique_id=999786641]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BG" type="ColorRect" parent="GameOver" unique_id=29599457]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.28235295)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver" unique_id=679803437]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -62.0
+offset_right = 172.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/VBoxContainer" unique_id=2078415852]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.21176471, 0.02745098, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_bjfho")
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+
+[node name="Restart" type="Button" parent="GameOver/VBoxContainer" unique_id=97602821]
+process_mode = 3
+layout_mode = 2
+text = "Restart
+"
+
+[node name="Quit" type="Button" parent="GameOver/VBoxContainer" unique_id=1239072184]
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="pressed" from="GameOver/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
